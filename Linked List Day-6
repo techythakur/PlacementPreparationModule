@@ -1,0 +1,122 @@
+LINKED LIST CYCLE (JAVA):
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+ 
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+ 
+            if(slow == fast)
+                return true;
+        }
+        return false;
+    }
+}
+OR:
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if(head==null)
+            return false;
+        ListNode fast = head.next;
+        ListNode slow = head;
+ 
+        while(slow!=fast){
+            if(fast == null || fast.next == null) return false;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+                return true;
+    }
+}
+
+MERGE SORTED LINKED LIST (JAVA):
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+  
+    ListNode head = new ListNode(0);
+    ListNode p=head;
+ 
+    ListNode p1=l1;
+    ListNode p2=l2;
+    while(p1!=null && p2!=null)
+    {
+        if(p1.val < p2.val)
+        {
+            p.next = p1;
+            p1 = p1.next;
+        }
+        else
+        {
+            p.next = p2;
+            p2 = p2.next;
+        }
+        p=p.next;
+    }
+ 
+    if(p1!=null)
+        p.next = p1;
+ 
+    if(p2!=null)
+        p.next = p2;
+ 
+    return head.next;
+    }
+}
+
+REMOVE LINKED LIST ELEMENTS (JAVA):
+class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+   if(head == null) return null;
+        
+        while(head!=null){
+            if(head.val == val)
+                head = head.next;
+            else
+                break;
+        }
+        
+        ListNode p = head;
+        
+        if(p == null) return null;
+        
+        while(p.next != null){
+            if(p.next.val == val)
+            {
+                ListNode q = p.next;
+                p.next = q.next;
+            }
+            else  p = p.next;
+        }
+        return head;
+    }
+}
+OR
+class Solution  
+{
+public ListNode removeElements(ListNode head, int val)	{
+		if (head == null)
+			return null;
+
+		ListNode curr = head;
+		ListNode prev = null;
+
+		while (curr != null)
+		{
+			if (curr.val == val)
+			{
+				if (prev != null)
+					prev.next = curr.next;
+				else
+					head = head.next;
+			}
+			else
+			{
+				prev = curr;
+			}
+			curr = curr.next;
+		}
+		return head;
+    }
+}

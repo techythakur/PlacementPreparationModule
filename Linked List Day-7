@@ -1,0 +1,38 @@
+REVERSE LINKED LIST (JAVA):
+class Solution {
+    public ListNode reverseList(ListNode node) {
+    ListNode prev = null;
+    ListNode current = node;
+    ListNode next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        node = prev;
+        return node;    
+    }
+}
+
+REMOVE DUPLICATES FROM SORTED LINKED LIST (JAVA):
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+    if (head == null) 
+        return null;
+        ListNode current = head;
+ 
+        while (current.next != null)
+        {
+            if (current.val == current.next.val)
+            {
+                ListNode nextNext = current.next.next;
+                current.next = nextNext;
+            }
+            else {
+                current = current.next;    // only advance if no deletion
+            }
+        }
+        return head;
+   }
+}

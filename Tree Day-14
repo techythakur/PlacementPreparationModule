@@ -1,0 +1,99 @@
+SEARCH IN A BINARY SEARCH TREE (JAVA):
+class Solution 
+{
+    public TreeNode searchBST(TreeNode root, int val) 
+    {
+        while(root != null) 
+        {           
+            if(root.val == val)
+                return root;            
+            else if(root.val > val)
+                root = root.left;           
+            else 
+                root = root.right;
+        }    
+        return null;
+    }
+}
+
+INSERT INTO A BST (JAVA):
+class Solution {
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+     if(root == null)
+            return new TreeNode(val);
+        if(val > root.val)
+        {
+            root.right = insertIntoBST(root.right , val);
+            return root;
+        }
+        root.left = insertIntoBST(root.left , val);
+        return root;   
+    }
+}
+OR
+class Solution {
+    public TreeNode insertIntoBST(TreeNode root, int val) 
+    {     
+        if(root==null)
+        {
+            return new TreeNode(val);   // check if tree is null 
+        }
+    
+        TreeNode curr = root;   // make root the current node 
+     
+        while(true)
+        {
+            if(curr.val<=val)  // check if target value is greater than root/curr value
+            {
+                if(curr.right!=null)   // check null condition 
+                {
+                    curr = curr.right;   
+                }               
+                else {
+                    curr.right = new TreeNode(val);   // when we find null make right node of curr the target value 
+                    break;
+                }                
+            }  
+            // check if target value is lesser than root/curr value
+            
+            else{
+                if(curr.left!=null)  // check null condition 
+                {
+                    curr= curr.left;
+                }
+                else
+                {
+                    curr.left = new TreeNode(val);  // when null , make left node of curr the target value 
+                    break;
+                }
+            }
+        }
+      return root ;
+    }
+}
+OR
+public TreeNode insertIntoBST(TreeNode root, int val)
+{
+    if(root == null)
+        return new TreeNode(val, null, null);
+    
+    TreeNode node = root;
+    TreeNode parent = null;
+    
+    while(node != null){
+        parent = node;
+        
+        if(node.val < val)
+            node = node.right;
+        else
+            node = node.left;
+    }
+    
+    if(parent.val > val)
+        parent.left = new TreeNode(val, null, null);
+    
+    if(parent.val  < val)
+        parent.right = new TreeNode(val, null, null);
+    
+    return root;
+}

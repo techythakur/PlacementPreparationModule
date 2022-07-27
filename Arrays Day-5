@@ -1,0 +1,44 @@
+VALID SUDOKU (JAVA):
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+      for(int i = 0; i < 9; i++){
+            Set<Character> rows = new HashSet<Character>();
+            Set<Character> columns = new HashSet<Character>();
+            Set<Character> cube = new HashSet<Character>();
+            for(int j = 0; j < 9; j++)
+            {
+                if((board[i][j] != '.' && !rows.add(board[i][j]))||(board[j][i] != '.' && !columns.add(board[j][i])))
+                     return false;                
+                int rowIndex = 3 * (i / 3);     // row index of current cube
+                int colIndex = 3 * (i % 3);     // col index of current cube
+                if(board[rowIndex + j / 3][colIndex + j % 3] != '.' &&
+                   !cube.add(board[rowIndex + j / 3][colIndex + j % 3])){
+                       return false;
+                }
+            }
+        }
+        return true;   
+    }
+}
+
+SEARCH IN A 2-D ARRAY (JAVA):
+public class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if(matrix == null || matrix.length == 0 || matrix[0].length == 0) return false;
+        int i = matrix.length -1;
+        int j = matrix[0].length -1;
+        if(target > matrix[i][j] || target < matrix[0][0] ) return false;
+
+        int x = 0;
+        int y = j;
+        while(x <= i&& y>=0){
+            if(target == matrix[x][y]) return true;
+            else if( target < matrix[x][y]){
+                y--;
+            }else{
+                x++;
+            }
+        }
+        return false;
+    }
+}

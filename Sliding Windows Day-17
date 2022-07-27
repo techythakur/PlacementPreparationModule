@@ -1,0 +1,119 @@
+LONGEST SUBSTRING WITHOUT REPEATING CHARACTERS (JAVA):
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int[]count=new int[128];
+        int i=0;
+        int j=0;
+        int max=1;
+        if(s.length()==0){
+            return 0;
+        }
+        count[s.charAt(0)]=1;
+        while(j<s.length()-1){
+            if(count[s.charAt(j+1)]==0){
+                j++;
+                count[s.charAt(j)]=1;
+                max=Math.max((j-i+1),max);
+            }
+            else{
+                count[s.charAt(i)]--;
+                i++;
+            }
+        }
+        return max;
+    }
+}
+OR
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+          	if(s.length() < 2){
+            return s.length();
+        }
+        
+        int i = 0;
+        int j = 1;
+        int max = 0;
+        
+        while(j < s.length() && i < s.length())  //loop until one of the pointers leaves the bounds.
+        {
+            //Check if the current substring can hold the character you wish to add.
+			if(s.substring(i, j).contains(s.charAt(j) + ""))
+				       i++;  //If it cannot, the program will increment i until it does.
+            
+        else
+             	j++;  //Otherwise, it will increment j to add the new character.
+                
+				if(j-i > max)  //If the length of this substring is greater than the current max,
+           max = j-i;  //set it to the current max.
+        }
+        
+		//It's possible that the answer comes up as 0 from above, if so, return 1, 
+		//as all substrings will have at least one character.
+        if(max>1)
+        return max;
+        else return 1;
+    }
+}
+OR
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int i=0;
+        int j=0;
+        int l=0;
+        int max=0;
+        HashSet<Character> uniqueSubstring=new HashSet<>();
+        for(i=0;i<s.length();i++){
+            while(uniqueSubstring.contains(s.charAt(i))){
+                uniqueSubstring.remove(s.charAt(j));
+                j++; 
+            }
+            uniqueSubstring.add(s.charAt(i));
+            l=i-j+1;
+            max=Math.max(l,max);
+        }
+        return max;
+    }
+}
+
+PERMUTATIONS IN A STRING (JAVA):
+class Solution {
+public boolean checkInclusion(String s, String p) {
+    if(s.length()>p.length())
+        return false;
+    if(s.length()==0) return true;
+    int sc[]=new int[26];
+    int pc[]=new int[26];
+    for(int i=0;i<s.length();i++){
+        sc[s.charAt(i)-'a']++;
+        pc[p.charAt(i)-'a']++;
+    }
+    for(int j=s.length();j<=p.length();j++){   
+        if(Arrays.equals(sc,pc))return true;
+        if(j>=p.length())break;
+        pc[p.charAt(j)-'a']++;
+        pc[p.charAt(j-s.length())-'a']--;
+    }
+    return false;
+}
+}
+OR
+class Solution {
+public boolean checkInclusion(String s, String p) {
+    if(s.length()>p.length())
+        return false;
+    if(s.length()==0) return true;
+    char sc[]=new char[128];
+    char pc[]=new char[128];
+    for(int i=0;i<s.length();i++){
+        sc[s.charAt(i)]++;
+        pc[p.charAt(i)]++;
+    }
+    for(int j=s.length();j<=p.length();j++){   
+        if(Arrays.equals(sc,pc))return true;
+        if(j>=p.length())break;
+        pc[p.charAt(j)]++;
+        pc[p.charAt(j-s.length())]--;
+    }
+    return false;
+}
+}

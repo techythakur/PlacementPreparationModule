@@ -1,0 +1,47 @@
+REVERSE STRING (JAVA):
+class Solution {
+    public void reverseString(char[] s) {     
+        char [] rev = s.clone(); 
+        for(int i = rev.length-1,j =0; i>=0; i--,j++){
+            s[j] = rev[i]; 
+        }
+    }
+}
+OR
+class Solution {
+    public void reverseString(char[] s) {        
+        int st = 0; int e = s.length -1;
+        char temp;   
+        while (st <= e){
+            temp = s[st];
+            s[st] = s[e];
+            s[e] = temp;
+            
+            st++;
+            e--;
+        }
+        return;
+    }
+ }
+ 
+REVERSE WORDS OF A STRING III (JAVA):
+class Solution {
+    public String reverseWords(String s) {
+        StringBuffer ans = new StringBuffer();
+        int start = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == ' ') {
+                StringBuffer temp = new StringBuffer(s.substring(start, i));
+                temp.reverse();
+                ans.append(temp);
+                ans.append(" ");
+                start = i + 1;
+            }
+        }
+       StringBuffer temp = new StringBuffer(s.substring(start));
+        temp.reverse();
+        ans.append(temp);
+        return ans.toString();
+    }
+}

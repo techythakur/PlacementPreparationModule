@@ -1,0 +1,51 @@
+Implement Stack using Queues(PYTHON)
+
+class MyStack:
+
+    def __init__(self):
+        self.stack=[]
+        
+
+    def push(self, x: int) -> None:
+        self.stack.append(x)
+        
+
+    def pop(self) -> int:
+        return self.stack.pop() if self.stack else None
+        
+        
+
+    def top(self) -> int:
+        return self.stack[-1] if self.stack else None
+        
+
+    def empty(self) -> bool:
+        if len(self.stack)==0:
+            return True
+        else:
+            return False
+        
+
+
+Implement Queue using Stacks(Python)
+class MyQueue:
+
+    def __init__(self):
+        self.queue=[]
+        
+
+    def push(self, x: int) -> None:
+        self.queue.append(x)
+        
+
+    def pop(self) -> int:
+        return self.queue.pop(0) if self.queue else None
+        
+
+    def peek(self) -> int:
+        return self.queue[0] if self.queue else None
+        
+
+    def empty(self) -> bool:
+        return False if self.queue else True
+        

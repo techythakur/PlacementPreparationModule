@@ -1,0 +1,78 @@
+TWO SUM-IV INPUT IS A BST (JAVA):
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+    Set<Integer> set = new HashSet();
+    Queue<TreeNode> queue = new LinkedList();
+    queue.add(root);
+    while (!queue.isEmpty()) {
+      if (queue.peek() != null) {
+        TreeNode node = queue.remove();
+        if (set.contains(k - node.val))
+          return true;
+        set.add(node.val);
+        queue.add(node.right);
+        queue.add(node.left);
+      } else
+        queue.remove();
+    }
+    return false;
+  }
+}
+OR
+public boolean findTarget(TreeNode root, int k) {
+        List<Integer> nums = new ArrayList<>();
+        inorder(root, nums);
+        for(int i = 0, j = nums.size()-1; i<j;){
+            if(nums.get(i) + nums.get(j) == k)return true;
+            if(nums.get(i) + nums.get(j) < k)i++;
+            else j--;
+        }
+        return false;
+    }
+    
+    public void inorder(TreeNode root, List<Integer> nums){
+        if(root == null)return;
+        inorder(root.left, nums);
+        nums.add(root.val);
+        inorder(root.right, nums);
+    }
+    
+ LOWEST COMMON ANCESTOR OF BST (JAVA):
+ class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+          if(root == p || root==q || root == null)
+            return root;
+        
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if((left== p && right == q)||(left== q && right == p))
+            return root;
+
+        return left == null? right: left;
+    }
+}
+
+VALIDATE A BST (JAVA):
+class Solution
+{
+    public boolean isValidBST(TreeNode root) {
+    ArrayList<Integer> list = new ArrayList<>();
+    val_list(root, list);
+    if(list.size()>1)
+        for(int i=1;i<list.size();i++){
+        	if(list.get(i-1)>=list.get(i)){
+        		return false;
+        	}
+        }
+    
+    return true;
+}
+public void val_list(TreeNode node,ArrayList<Integer> list)
+{
+	if(node==null)
+		return;
+	val_list(node.left,list);
+	list.add(node.val);
+	val_list(node.right, list);
+}
+}
