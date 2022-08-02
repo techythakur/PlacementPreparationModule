@@ -1,0 +1,86 @@
+POWER OF TWO (JAVA):
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        if(n==0) return false;
+        int mask = 1;
+        while (n!=1){
+            if((n&mask) == 1) return false;
+            n = n>>1;
+        }
+        return true;
+    }
+}
+OR
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        int curr=n;
+        int it=0;
+        if(n==0){
+            return false;
+        }
+        if(n==1){
+            return true;
+        }
+        while(curr%2==0){
+            
+            curr=curr/2;
+            it++;
+        }
+        if(Math.pow(2,it) == n)
+                return true;
+        return false;
+}
+}
+OR
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        if(n == 0) return false;
+        if(n == 1) return true;
+        if(n%2 != 0) return false;
+        
+        return isPowerOfTwo(n/2);
+    }
+}
+
+NUMBER OF 1 BITS (JAVA):
+public class Solution {
+    // you need to treat n as an unsigned value
+    public int hammingWeight(int n) {
+        int count=0;
+        while(n!=0){
+            count +=n&1;
+            n=n>>>1;
+        }
+        return count;
+    }
+}
+OR
+public class Solution
+{
+public int hammingWeight(int n)
+{
+int count=0;
+for(int i=0;i<32;i++)
+{
+if(n%2!=0)
+{
+count++;
+}
+n>>=1;
+}
+return count;
+}
+}
+OR
+public class Solution
+{
+public int hammingWeight(int n)
+{
+  int count = 0;
+    while(n != 0){
+        n = n & (n-1);
+        count++;
+    }
+    return count;
+}
+}
