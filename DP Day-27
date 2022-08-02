@@ -1,0 +1,85 @@
+CLIMBING STAIRS (JAVA):
+class Solution {
+    public int climbStairs(int n) {
+        if(n<=1)
+        {
+            return 1;
+        }
+        int[] arr=new int[n];
+        arr[0]=arr[1]=1;
+        for(int i=2;i<n;i++)
+        {
+            arr[i]=arr[i-1]+arr[i-2];
+        }
+    
+    return arr[n-1]+arr[n-2];
+}
+}
+OR
+class Solution {
+    public int climbStairs(int n) {
+    int a=1,b=1;
+    while(n>0){
+    b=a-b;
+    a+=b;
+    n--;
+    }
+    return a;
+    }
+ }
+ 
+HOUSE ROBBER (JAVA):
+class Solution {
+public int rob(int[] nums) {
+    int initial=nums[0];
+    int sum=0;
+    int i=1;
+    while(i<nums.length){
+        int newinitial=sum+nums[i];
+        int newsum=Math.max(initial,sum);
+        initial=newinitial;
+        sum=newsum;
+        i++;        
+      }
+    return Math.max(initial,sum);    
+   }
+}
+OR
+class Solution {
+    public int rob(int[] nums) {
+        
+        int n = nums.length;
+        if(n==1) return nums[0];
+        if(n==2) return Math.max(nums[0], nums[1]);
+        
+        int[] dp = new int[n];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+        
+        for(int i=2; i<n; i++){
+            dp[i] = Math.max(dp[i-2]+nums[i], dp[i-1]);
+        }
+        
+        return dp[n-1];
+    }
+}
+ 
+ TRIANGLE (JAVA):
+  public int minimumTotal(List<List<Integer>> triangle) {
+    int n = triangle.size();
+
+    // Fill DP array with last row
+    int[] dp = new int[n];
+    for (int r = 0; r < n; r++) dp[r] = triangle.get(n - 1).get(r);
+
+    for (int r = n - 2; r >= 0; r--) { // start from second last
+      for (int c = 0; c < triangle.get(r).size(); c++) {
+        int currTriangleNodeValue = triangle.get(r).get(c);
+        dp[c] =
+            currTriangleNodeValue // current node value
+                + Math.min(dp[c], dp[c + 1]); //  Min of bottom moves
+      }
+    }
+
+    return dp[0]; // search space narrows down to index 0
+  }
