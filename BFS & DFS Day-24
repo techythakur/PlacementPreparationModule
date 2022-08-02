@@ -1,0 +1,91 @@
+MERGE TWO BINARY TREE (JAVA):
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode mergeTrees(TreeNode r1, TreeNode r2) {
+        if (r1 == null) return r2;
+        if (r2 == null) return r1;
+        r1.val += r2.val;
+        r1.left = mergeTrees(r1.left, r2.left);
+        r1.right = mergeTrees(r1.right, r2.right);
+        return r1;
+    }
+}
+
+POPULATING NEXT RIGHT POINTERS IN EACH NODE (JAVA):
+class Solution {
+    public Node connect(Node root) {
+        if(root == null) return null;
+        Queue<Node> q = new LinkedList();
+        if(root.left != null){
+            q.add(root.left);
+            q.add(root.right);
+        }
+        while(!q.isEmpty()){
+            int len = q.size();
+            for(int i=0; i<len-1; i++){
+                Node prev = q.poll();
+                Node cur = q.peek();
+                prev.next = cur;
+                if(prev.left != null) {
+                    q.add(prev.left);
+                    q.add(prev.right);
+                    q.add(cur.left);
+                    q.add(cur.right);
+                }
+            }
+            q.poll();
+        }
+        return root;
+    }
+}
+OR
+/* Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+    
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+
+class Solution {
+    public Node connect(Node root) {
+        if(root==null || root.left==null || root.right==null){
+            return root;
+        }
+        root.left.next = root.right;
+        if(root.next!=null){
+            root.right.next=root.next.left;
+        }
+        connect(root.left);
+        connect(root.right);
+        return root;
+    }
+}
